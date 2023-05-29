@@ -119,13 +119,16 @@ local function run_tests()
   end
 end
 
-local cmdGrp = vim.api.nvim_create_augroup("nvim-test-runner", { clear = true })
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
-  group = cmdGrp,
-  pattern = "*",
-  callback = run_tests
-})
+local function setup(user_settings)
+  local cmdGrp = vim.api.nvim_create_augroup("nvim-test-runner", { clear = true })
+  vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+    group = cmdGrp,
+    pattern = "*",
+    callback = run_tests
+  })
+end
 
 return {
   run_tests = run_tests,
+  setup = setup,
 }
